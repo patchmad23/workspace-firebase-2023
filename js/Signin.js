@@ -1,23 +1,32 @@
 // ***** Use your configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyDZIAVnBvB-GHlaDDO2GbOFjQhVvleb344",
-  authDomain: "database2023test.firebaseapp.com",
-  projectId: "database2023test",
-  storageBucket: "database2023test.appspot.com",
-  messagingSenderId: "352598568614",
-  appId: "1:352598568614:web:b1acd2e65514f8050f8e67",
-  measurementId: "G-6EF9ZJX352"
-}; 
+  apiKey: "AIzaSyC8dSX-ePcJfSN0ps-OzZVBpVEjrE6E9yg",
+  authDomain: "database2023-f6c4f.firebaseapp.com",
+  projectId: "database2023-f6c4f",
+  storageBucket: "database2023-f6c4f.appspot.com",
+  messagingSenderId: "618057405361",
+  appId: "1:618057405361:web:ec1f9dca5383e659146390",
+  measurementId: "G-TH1KTDF9B7"
+};
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+      //const db = firebase.firestore();
+
+// for game rank
+firebase.firestore().collection("test").orderBy("item").limit(3).get().then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    console.log(`${doc.id} => ${doc.data().item}`);
+  })
+})
 
 // save the data
 $('#Login').submit(function (e) {
   e.preventDefault();
   // get the user name and password from the form
   // You need to change this.
-  var email = 'yilianz4@gmail.com';
-  var password = 'ddsgagafda';
+  var email = 'pmadura@usca.edu';
+  var password = '12345678';
 
   firebase
     .auth()
@@ -30,11 +39,12 @@ $('#Login').submit(function (e) {
 
       //user.updateProfile({ displayName: "Not sure" });
       if (user != null) {
-        name = user.displayName;
+        myname = user.displayName;
         email = user.email;
         photoUrl = user.photoURL;
         emailVerified = user.emailVerified;
-        console.log(name, email, emailVerified);
+        console.log(myname, email, emailVerified);
+        window.location.href = 'Surveyresult.html';
       }
     })
     .catch((error) => {
@@ -60,6 +70,7 @@ $('#google').click(function(){
     // Handle Errors here.
     var errorCode = error.code;
     var errorMessage = error.message;
+    console.log(errorMessage);
     // The email of the user's account used.
     var email = error.email;
     // The firebase.auth.AuthCredential type that was used.
